@@ -31,6 +31,7 @@ public class BitVector {
         int tmp = (arr[index] << (((inputPosition / 32 + 1) * 32) - (inputPosition)));
         tmp = (tmp >> ((inputPosition / 32 + 1) * 32) - (inputPosition));
         int tmp2 = (arr[index] >>> (position + 1));
+        tmp2 = (tmp2 << (position + 1));
         tmp2 = tmp | tmp2;
         if ((arr[index] >> position & 1) == 1){
             arr[index] = tmp2;
