@@ -28,14 +28,26 @@ public class BitVector {
         printToBinary(arr);
         index = (inputPosition / 32);
         position = (inputPosition - ((inputPosition / 32) * 32));
-        int tmp = (arr[index] << (((inputPosition / 32 + 1) * 32) - (inputPosition)));
-        tmp = (tmp >> ((inputPosition / 32 + 1) * 32) - (inputPosition));
-        int tmp2 = (arr[index] >>> (position + 1));
-        tmp2 = (tmp2 << (position + 1));
-        tmp2 = tmp | tmp2;
-        if ((arr[index] >> position & 1) == 1){
-            arr[index] = tmp2;
-            tmpMathPower -= Math.pow(2.0, (double)inputPosition);
+        if (position < 31 && position > 0) {
+            int tmp = (arr[index] << (((inputPosition / 32 + 1) * 32) - (inputPosition)));//arr[0] << 1
+            tmp = (tmp >>> (((inputPosition / 32 + 1) * 32) - (inputPosition)));// tmp >>> 1
+            int tmp2 = (arr[index] >>> (position + 1)); // arr[0] >>> 32
+            tmp2 = (tmp2 << (position + 1)); // tmp << 32
+            int res = tmp2 | tmp;
+            if ((arr[index] >>> position & 1) == 1) {
+                arr[index] = res;
+                tmpMathPower -= Math.pow(2.0, (double) inputPosition);
+            }
+        } else if (position == 31){
+            int tmp = arr[index] << 1;
+            tmp = tmp >>> 1;
+            arr[index] = tmp;
+            tmpMathPower -= Math.pow(2.0, (double) inputPosition);
+        } else if (position == 0) {
+            int tmp = arr[index] >>> 1;
+            tmp = tmp << 1;
+            arr[index] = tmp;
+            tmpMathPower -= Math.pow(2.0, (double) inputPosition);
         }
         System.out.println("The Binary representation of Vector");
         printToBinary(arr);
