@@ -1,8 +1,6 @@
 public class BitVector {
     private int size;
     private static int[] arr;
-    private int position;
-    private int index;
     private double tmpMathPower;
 
     public BitVector(int inputSize){                //Constructor for setting the size of array
@@ -12,8 +10,8 @@ public class BitVector {
     public void set(int inputPosition){ // example. inputPosition == 100
         System.out.println("\nThe Binary representation of the Vector before");
         printToBinary(arr);                        // Primary printing the binary representation of selected element
-        index = (inputPosition / 32);              // example. (if inputPosition == 100) 100 / 32 == 3 (hence index = 3)
-        position = (inputPosition - ((inputPosition / 32) * 32));  //100 - ((100 / 32) * 32) (hence position == (100 - 96) == 4)
+        int index = (inputPosition / 32);              // example. (if inputPosition == 100) 100 / 32 == 3 (hence index = 3)
+        int position = (inputPosition - ((inputPosition / 32) * 32));  //100 - ((100 / 32) * 32) (hence position == (100 - 96) == 4)
         int tmp = (arr[index] << ((inputPosition / 32 + 1) * 32) - (inputPosition)); //arr[3] << 28
         tmp = (tmp >>> ((inputPosition / 32 + 1) * 32) - (inputPosition)); //tmp >>> 28
         arr[index] = arr[index] >>> position | 1;  // arr[3] >>> 4 | 1
@@ -26,13 +24,13 @@ public class BitVector {
     public void reset(int inputPosition) {
         System.out.println("\nThe Binary representation of the Vector before");
         printToBinary(arr);
-        index = (inputPosition / 32);
-        position = (inputPosition - ((inputPosition / 32) * 32));
+        int index = (inputPosition / 32);
+        int position = (inputPosition - ((inputPosition / 32) * 32));
         if (position < 31 && position > 0) {
-            int tmp = (arr[index] << (((inputPosition / 32 + 1) * 32) - (inputPosition)));//arr[0] << 1
-            tmp = (tmp >>> (((inputPosition / 32 + 1) * 32) - (inputPosition)));// tmp >>> 1
-            int tmp2 = (arr[index] >>> (position + 1)); // arr[0] >>> 32
-            tmp2 = (tmp2 << (position + 1)); // tmp << 32
+            int tmp = (arr[index] << (((inputPosition / 32 + 1) * 32) - (inputPosition)));
+            tmp = (tmp >>> (((inputPosition / 32 + 1) * 32) - (inputPosition)));
+            int tmp2 = (arr[index] >>> (position + 1)); // 
+            tmp2 = (tmp2 << (position + 1)); 
             int res = tmp2 | tmp;
             if ((arr[index] >>> position & 1) == 1) {
                 arr[index] = res;
